@@ -13,13 +13,17 @@ interface CodeDescProps {
 SyntaxHighlighter.registerLanguage("python", python);
 
 export default function CodeDesc({ selectedValue, hideCodeDesc }: CodeDescProps) {
-    const code_text : string[] = useMemo(() => {
+    const code_text: string[] = useMemo(() => {
         return JsonGetter.getCode(selectedValue);
     }, [selectedValue])
 
     return (
         <dialog id="code_modal" className="modal gray-out" open>
+
             <div className="modal-box w-11/12 max-w-2xl">
+                <h1 className="h1-custom">
+                    Code
+                </h1>
                 <SyntaxHighlighter language="python" style={docco} showLineNumbers>
                     {code_text.join("\n")}
                 </SyntaxHighlighter>
