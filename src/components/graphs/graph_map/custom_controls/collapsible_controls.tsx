@@ -69,9 +69,9 @@ export default function CollapsibleControls({ onDownload, randomizeWeight, clear
             <ControlButton title="Clear graph" onClick={clearGraph}>
                 <FontAwesomeIcon icon={faX} />
             </ControlButton>
-            <ControlButton title="Download image" onClick={onDownload}>
+            {import.meta.env.DEV ? <ControlButton title="Download image" onClick={onDownload}>
                 <FontAwesomeIcon icon={faDownload} />
-            </ControlButton>
+            </ControlButton> : null}
             <ControlButton title="Chosen vertice to connect"
                 onClick={() => currentMode === ActionType.MODE_ADD ? dispatch({ type: ActionType.RESET }) : null}>
                 {chosen}

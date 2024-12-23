@@ -4,7 +4,6 @@ import { faShareNodes } from "@fortawesome/free-solid-svg-icons/faShareNodes";
 import { faHand } from "@fortawesome/free-solid-svg-icons/faHand";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons/faArrowRight";
-import { faDownload } from "@fortawesome/free-solid-svg-icons/faDownload";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import { faMinus } from "@fortawesome/free-solid-svg-icons/faMinus";
 import { faExpand } from "@fortawesome/free-solid-svg-icons/faExpand";
@@ -28,7 +27,6 @@ const helper_data : IconHelper[] = [
     {icon : faHand, description: `Drag mode for choosing or dragging nodes`},
     {icon : faTrash, description: `Remove mode for deleting nodes or edges`},
     {icon : faX, description: `Clear current graph`},
-    {icon : faDownload, description: `Download png file of graph`},
     {icon : fa1, description:`Displays currently clicked node when connecting. -1 if not clicked any`}
 ];
 
