@@ -24,7 +24,7 @@ const helper_data : IconHelper[] = [
     {icon : faArrowRight, description: `Make graph directed/undirected`},
     {icon : faShareNodes, description: `Add mode for adding nodes by clicking on panel, connecting edges 
         by clicking two nodes or editing edge's weight by clicking on it`},
-    {icon : faHand, description: `Drag mode for choosing or dragging nodes`},
+    {icon : faHand, description: `Drag mode for choosing, dragging nodes or changing directions of edge.`},
     {icon : faTrash, description: `Remove mode for deleting nodes or edges`},
     {icon : faX, description: `Clear current graph`},
     {icon : fa1, description:`Displays currently clicked node when connecting. -1 if not clicked any`}
