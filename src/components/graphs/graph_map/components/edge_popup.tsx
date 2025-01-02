@@ -19,7 +19,7 @@ export default function EdgePopup({updateEdge, edge_to_change} : EdgePopupInterf
             alert("Value must be number")
         }
         else{
-            updateEdge(edge_to_change.id, {label: inputVal});
+            updateEdge(edge_to_change.id, {label: String(Math.floor(parseInt(inputVal)))});
         }
         setInputVal("");
     }

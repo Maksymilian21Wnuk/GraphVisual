@@ -5,7 +5,8 @@ import { Queue } from "queue-typescript";
 
 export default function bfs(g: DirectedGraph): Steps {
     let visited = new Set<string>();
-    let queue : Queue<string> = new Queue<string>(g.get_start_node());
+    let queue = new Queue<string>(g.get_start_node());
+
     g.add_step({ additional_name: `Queue:`, 
         additional: queue, 
         step_idx: 0, 
@@ -14,21 +15,21 @@ export default function bfs(g: DirectedGraph): Steps {
 
     while (queue.length > 0) {
         let node: string = queue.dequeue();
-        g.add_step({ nodes: [node], 
+        g.add_step({
             step_idx: 1, 
             additional: queue, additional_name: `Queue:`, 
             current_node: node, additional_snd_name: `Visited:`, additional_snd: visited });
         
         visited.add(node);
-        
-        let neighbours = g.get_neighbours(node);
+        let neighbours : string[] = g.get_neighbours(node);
 
         g.add_step({ dest_nodes: neighbours,
+            current_node: node,
             source_node: node, 
             nodes: neighbours, 
             step_idx: 2, 
             additional: queue, additional_name: `Queue:`, 
-            additional_snd_name: `Visited:`, additional_snd: visited })
+            additional_snd: visited, additional_snd_name: `Visited:`  })
 
         for (let neighbour of neighbours) {
             if (!visited.has(neighbour)) {
@@ -50,6 +51,8 @@ export default function bfs(g: DirectedGraph): Steps {
         step_idx: 4, additional: queue,
         additional_name: `Queue:`, additional_snd_name: `Visited:`, additional_snd: visited
     })
+
     g.add_step({ step_idx: 5 });
+
     return g.get_steps();
 }
