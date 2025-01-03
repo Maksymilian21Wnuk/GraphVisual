@@ -299,7 +299,7 @@
         "aggregation": {
             "description": "Find paths in tree using BFS",
             "title": "Tree's shortest paths",
-            "require_weights": false,
+            "require_weights": true,
             "require_directed": false,
             "require_non_directed": true,
             "require_tree": true
