@@ -5,7 +5,7 @@ import { AggregationInterfaceNamed } from "../../../../../algorithms/algorithms_
 
 interface DropdownProps {
     setSelectedValue: (n: string) => void;
-    setChosenFunction: React.Dispatch<React.SetStateAction<AggregationInterfaceNamed>>;
+    setChosenFunction: (chosen_function: AggregationInterfaceNamed) => void;
     resetGraph: () => void;
 };
 

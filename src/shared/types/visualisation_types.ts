@@ -9,6 +9,8 @@ import Graph from "../models/graph/graph";
 import WeightedGraph from "../models/weighted_graph/weighted_graph";
 import TreeGraph from "../models/tree_graph/tree_graph";
 import Colors from "../models/colors/colors";
+import { VisualisationActionType } from "../enumerations/enums";
+import { AggregationInterfaceNamed } from "../../algorithms/algorithms_description/json_interfaces";
 /*
 Types used in visualisation and
 writing own algorithms,
@@ -165,4 +167,21 @@ export type Algorithm = {
 
 export type StructureInterface = {
     graph: DirectedGraph;
+}
+
+export type VisualisationPayload = AggregationInterfaceNamed
+    | Steps | number | PreviousStep
+    | undefined | boolean;
+
+export type VisualisationAction = {
+    type: VisualisationActionType;
+    payload: VisualisationPayload;
+}
+
+export type VisualisationState = {
+    chosen_function: AggregationInterfaceNamed;
+    steps: Steps;
+    step_idx: number;
+    prev_step: PreviousStep | undefined;
+    first_prev: boolean;
 }

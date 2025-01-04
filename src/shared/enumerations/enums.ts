@@ -30,6 +30,19 @@ export enum ActionType {
     CHANGE_EDGE,
     RESET
 }
+/**
+ * Action type for reducer, used
+ * locally in visualisation,
+ * used for performing operations 
+ * on visualisation interactions
+ */
+export enum VisualisationActionType {
+    SET_STEP_IDX,
+    SET_FIRST_PREV,
+    SET_PREV_STEP,
+    SET_CHOSEN_FUNCTION,
+    SET_STEPS
+}
 
 /**
  * Weight enum of graph viewport
