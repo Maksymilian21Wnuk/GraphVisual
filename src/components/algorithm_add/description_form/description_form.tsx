@@ -1,12 +1,12 @@
 import { FormEvent, useState } from "react"
-import OneLineInput from "./one_line_input/one_line_input";
+import OneLineInput from "./inputs/one_line_input/one_line_input";
 import { RequirementsInterface, InputInterface, OutputInterface } from "./util/input_interface";
-import LargeInput from "./large_input/large_input";
-import CodeInput from "./code_input/code_input";
+import LargeInput from "./inputs/large_input/large_input";
+import CodeInput from "./inputs/code_input/code_input";
 import submit_guard from "./util/submit_guard";
 import submit_json_parse from "./util/submit_json_parse";
-import CheckBoxes from "./checkboxes/checkboxes";
-import guard_checkbox from "./checkboxes/guard_checkbox";
+import CheckBoxes from "./inputs/checkboxes/checkboxes";
+import guard_checkbox from "./inputs/checkboxes/guard_checkbox";
 import { CheckboxInputName } from "./util/input_types";
 import { JsonRepresentation } from "../../../algorithms/algorithms_description/json_interfaces";
 import { checkboxes, code_info, exampleOutput, initialOutput, large_info, one_line_info } from "./store/infos";
@@ -34,7 +34,7 @@ export default function DescriptionForm({ setTemplateJson }: DescriptionFormInte
         setRequirements(guard_checkbox(name as CheckboxInputName, checked, requirements));
     }
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setOutput(
             {
@@ -81,15 +81,23 @@ export default function DescriptionForm({ setTemplateJson }: DescriptionFormInte
                 <form onSubmit={onSubmit}>
                     <ul>
                         {one_line_info.map((info: InputInterface, idx: number) =>
-                            <OneLineInput input_info={info} bg={idx % 2} onChange={handleChange} value={output[info.name]} />
+                            <li key={info.title}>
+                                <OneLineInput input_info={info} bg={idx % 2} onChange={handleChange} value={output[info.name]} />
+                            </li>
                         )}
                         {large_info.map((info: InputInterface, idx: number) =>
-                            <LargeInput input_info={info} bg={(idx + 1) % 2} onChange={handleChange} value={output[info.name]} />
+                            <li key={info.title} >
+                                <LargeInput input_info={info} bg={(idx + 1) % 2} onChange={handleChange} value={output[info.name]} />
+                            </li>
                         )}
                         {code_info.map((info: InputInterface, idx: number) =>
-                            <CodeInput input_info={info} bg={(idx + 1) % 2} onChange={handleChange} value={output[info.name]} />
+                            <li key={info.title} >
+                                <CodeInput input_info={info} bg={(idx + 1) % 2} onChange={handleChange} value={output[info.name]} />
+                            </li>
                         )}
-                        <CheckBoxes checkboxes={checkboxes} handleCheckbox={handleCheckbox} requirements={requirements} />
+                        <li key="checkbox" >
+                            <CheckBoxes checkboxes={checkboxes} handleCheckbox={handleCheckbox} requirements={requirements} />
+                        </li>
                     </ul>
                     <div className="justify-center items-center flex">
                         <button className="btn btn-lg m-2" type="submit">

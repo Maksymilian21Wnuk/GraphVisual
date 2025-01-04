@@ -1,5 +1,5 @@
-import { RequirementsInterface } from "../util/input_interface";
-import { CheckboxInputName } from "../util/input_types";
+import { RequirementsInterface } from "../../util/input_interface";
+import { CheckboxInputName } from "../../util/input_types";
 
 
 
