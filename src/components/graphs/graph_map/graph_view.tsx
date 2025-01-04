@@ -165,7 +165,7 @@ export default function GraphView() {
         reset_graph()
         if (isDirected) {
             // remove arrows holding invariant
-            console.log(convert_to_undirected(edges))
+            import.meta.env.DEV ? console.log(convert_to_undirected(edges)) : null;
             setEdges(convert_to_undirected(reset_edge_color(edges)));
             setIsDirected(false);
         }
@@ -189,9 +189,6 @@ export default function GraphView() {
         reactFlow.fitView();
     }
 
-    const onConnectStart = () => {
-        console.log("asdf")
-    }
 
     return (
         <>
@@ -209,7 +206,6 @@ export default function GraphView() {
                     fitView
                     nodesConnectable={false}
                     onPaneClick={onPaneClick}
-                    onConnectStart={onConnectStart}
                     minZoom={MIN_ZOOM}
                     snapGrid={[15, 15]}>
                     <CustomControls

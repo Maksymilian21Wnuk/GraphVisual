@@ -52,7 +52,7 @@ export default function colorEdges(step: Step, edges: Edge[]): Edge[] {
     }
     else{
         ids = parse_ids_undirected(src, edges_to_change);
-        console.log(ids)
+        import.meta.env.DEV ? console.log(ids) : null;
     }
 
     for (const id of ids) {

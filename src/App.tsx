@@ -1,5 +1,5 @@
 import Navbar from './components/navbar/navbar'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import Footer from './components/footer/footer'
 import React, { Suspense } from 'react'
 import Loading from './pages/loading_page';
@@ -11,7 +11,7 @@ import Loading from './pages/loading_page';
 const GraphVisualisationPage = React.lazy(() => import('./pages/graph_page'));
 const HomePage = React.lazy(() => import('./pages/home_page'));
 const FundamentalConceptsPage = React.lazy(() => import('./pages/fundamental_concepts_page'));
-const AlgorithmAddPage = React.lazy(() => import('./pages/algorithm_add_page'));
+const AlgorithmAddPage = import.meta.env.DEV ? React.lazy(() => import('./pages/algorithm_add_page')) : null;
 
 
 
@@ -25,7 +25,10 @@ function App() {
           <Route path="/graphs" element={<GraphVisualisationPage />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/concepts" element={<FundamentalConceptsPage />} />
-          <Route path="/developer" element={<AlgorithmAddPage />} />
+          {/* if wrong path, navigate to home */}
+          <Route path="*" element={<Navigate to="/" />} />
+          {/* only available in dev mode */}
+          {AlgorithmAddPage ? <Route path="/developer" element={<AlgorithmAddPage />} /> : null}
         </Routes>
       </Suspense>
       <Footer />

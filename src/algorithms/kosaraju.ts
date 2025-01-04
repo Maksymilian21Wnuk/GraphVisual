@@ -10,7 +10,6 @@ function dfs_recursive(vertice: string, visited: Set<string>, g: DirectedGraph, 
     }
     else {
         if (colors !== undefined && col_idx !== undefined) {
-            console.log(vertice, col_idx)
             colors.set_color(vertice, col_idx);
             g.add_step({
                 step_idx: 5,

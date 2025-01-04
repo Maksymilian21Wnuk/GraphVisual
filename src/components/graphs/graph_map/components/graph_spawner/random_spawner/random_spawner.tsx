@@ -39,7 +39,6 @@ export default function RandomSpawner() {
             setTimeout(() => reactFlow.fitView());
         }
         else if (nodeCount as number > NODE_MAX) {
-            console.log(NODE_MAX, import.meta.env.DEV)
             alert("Too many nodes");
         }
         else {

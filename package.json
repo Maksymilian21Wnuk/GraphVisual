@@ -49,10 +49,8 @@
     "react-device-detect": "^2.2.3",
     "react-dom": "^18.3.1",
     "react-fontawesome": "^1.7.1",
-    "react-modal-resizable-draggable": "^0.1.6",
     "react-router-dom": "^6.26.2",
     "react-syntax-highlighter": "^15.5.0",
-    "testing-library": "^0.0.2",
     "yui-lint": "^0.2.0",
     "zustand": "^5.0.0-rc.2"
   },

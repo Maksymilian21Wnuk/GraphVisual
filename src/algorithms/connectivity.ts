@@ -34,7 +34,6 @@ export default function connectivity_check(g: Graph): Steps {
         additional_name: "Visited:", additional_snd_name: "Graph's nodes:", step_idx: 5,
         additional: visited, additional_snd: g.get_nodes()
     })
-    console.log(g.get_nodes())
     if (visited.size != g.get_node_count()) {
         g.add_step({ msg: `Graph is not connected, visited ${visited.size} of ${g.get_node_count()} nodes`, step_idx: 6 });
     }

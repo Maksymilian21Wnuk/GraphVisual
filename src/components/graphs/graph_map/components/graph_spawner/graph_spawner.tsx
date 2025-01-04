@@ -44,7 +44,7 @@ export default function GraphSpawner() {
 
     const changeGraph = (idx: number): void => {
         const chosen = graphPresets[idx];
-        console.log(idx)
+        import.meta.env.DEV ? console.log(idx) : null;
         setEdges(chosen.edges);
         setNodes(chosen.nodes);
         // additional checks for state change
