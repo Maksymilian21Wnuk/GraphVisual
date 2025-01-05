@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { faShareNodes } from "@fortawesome/free-solid-svg-icons/faShareNodes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome/";
-import { HelpPopup } from "../help/help_popup";
+import { HelpModal } from "../help/help_modal";
 import { faBars } from "@fortawesome/free-solid-svg-icons/faBars";
 
 export default function Navbar() {
@@ -41,7 +41,7 @@ export default function Navbar() {
                             </Link>
                         </li>
                         <li className="pr-10">
-                            <HelpPopup />
+                            <HelpModal />
                         </li>
                     </div>
                 </div>

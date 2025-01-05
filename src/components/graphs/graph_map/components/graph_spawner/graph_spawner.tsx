@@ -7,7 +7,6 @@ import useStore from "../../../store/store";
 import { useShallow } from "zustand/shallow";
 import check_undirected from "../../functions/check_undirected/check_undirected";
 import check_weighted from "../../functions/check_weighted/check_weighted";
-import Button from "../../../../utility/atoms/button/button";
 import SpawnerModal from "./spawner_modal/spawner_modal";
 import storage_get_graphs from "./functions/local_get_graphs";
 import GraphSave from "./graph_save/graph_save";
@@ -65,10 +64,6 @@ export default function GraphSpawner() {
         setModifyMode(true);
     }
 
-    const onClick = () => {
-        (document.getElementById('spawner_modal') as HTMLDialogElement).showModal();
-    }
-
     const onRemove = (idx: number) => {
         const key = graphPresets[idx].name;
         localStorage.removeItem(key);
@@ -78,9 +73,8 @@ export default function GraphSpawner() {
     return (
         <div className="px-5 py-2">
             <div className="pl-36 flex flex-row items-center justify-center">
-                <Button onClick={onClick} text="Graphs" style="w-36 lg:w-72 m-2" />
-                <GraphSave nodes={nodes} edges={edges} graphPresets={graphPresets} setGraphPresets={setGraphPresets} />
                 <SpawnerModal setShowRandom={setShowRandom} onClose={changeGraph} graph_names={graphPresets} onRemove={onRemove} />
+                <GraphSave nodes={nodes} edges={edges} graphPresets={graphPresets} setGraphPresets={setGraphPresets} />
             </div>
             <div className="flex flex-col items-center justify-center">
                 {showRandom ? <RandomSpawner /> : null}

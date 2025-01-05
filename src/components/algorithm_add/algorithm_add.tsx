@@ -1,5 +1,5 @@
 import DescriptionForm from "./description_form/description_form";
-import Disclaimer from "./disclaimer/disclaimer";
+import Disclaimer from "./util/disclaimer";
 import CloningStep from "./cloning_step/cloning_step";
 import { JsonRepresentation } from "../../algorithms/algorithms_description/json_interfaces";
 import MetadataInsertStep from "./metdata_insert_step/metadata_insert_step";

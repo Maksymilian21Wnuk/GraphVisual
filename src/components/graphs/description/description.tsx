@@ -3,8 +3,8 @@ import { AppState } from '../../../shared/types/graph_map_types';
 import useStore from '../store/store';
 import { useShallow } from 'zustand/shallow';
 import Button from '../../utility/atoms/button/button';
-import CodeDesc from './content/code_desc';
 import StepDesc from './content/step_desc';
+import CodeModal from './content/code_modal';
 
 
 const selector = (state: AppState) => ({
@@ -25,7 +25,7 @@ export default function Description() {
                             <Button onClick={() => setShowCode(true)} text="See the code" style="" />
                             <StepDesc selectedValue={algo_selected} />
                             {showCode ?
-                                <CodeDesc selectedValue={algo_selected} hideCodeDesc={() => setShowCode(false)} />
+                                <CodeModal selectedValue={algo_selected} hideCodeDesc={() => setShowCode(false)} />
                                 : null}
                         </div>
                     </div>) : null}

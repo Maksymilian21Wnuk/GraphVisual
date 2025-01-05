@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useRef } from "react";
 import {
     ReactFlow,
     Node,
@@ -18,7 +18,6 @@ import getRandomInt from "../../utility/functions/random_int";
 import CustomControls from "./custom_controls/custom_controls";
 import CustomMarker from "./components/custom_edge/marker";
 import convert_to_undirected from "./functions/convert_to_undirected/convert_to_undirected";
-import EdgePopup from "./components/edge_popup";
 import { ActionType } from "../../../shared/enumerations/enums";
 import Additionals from "./components/additionals/additionals";
 import reset_edge_color from "../util/reset_edge_color";
@@ -28,6 +27,7 @@ import handle_connection from "./functions/handle_connection/handle_connection";
 import onDownload from "./functions/on_download/on_download";
 import Representation from "./components/structure/representation/representation";
 import DirectedGraph from "../../../shared/models/directed_graph/directed_graph";
+import { EdgeModal } from "./components/edge_modal";
 
 const selector = (state: AppState) => ({
     nodes: state.nodes,
@@ -51,6 +51,8 @@ export default function GraphView() {
     const { nodes, edges, onNodesChange, onEdgesChange, setNodes, setEdges, message, setModifyMode, modifyMode, isDirected, setIsDirected, isWeighted, setIsWeighted } = useStore(useShallow(selector));
 
     const reactFlow = useReactFlow();
+
+    const ref = useRef<HTMLDialogElement>(null);
 
     const initialState: GraphState = {
         removeMode: false,
@@ -193,7 +195,7 @@ export default function GraphView() {
     return (
         <>
             <CustomMarker />
-            <EdgePopup edge_to_change={state.edge_to_change} updateEdge={reactFlow.updateEdge} />
+            <EdgeModal ref={ref} edge_to_change={state.edge_to_change} updateEdge={reactFlow.updateEdge} />
             <div className="bg-white w-screen md:w-3/5 max-auto md:h-[300px] lg:h-[400px] border-2 border-black font-sans">
                 <ReactFlow
                     nodes={nodes}

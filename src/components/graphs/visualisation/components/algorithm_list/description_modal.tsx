@@ -2,14 +2,14 @@ import JsonGetter from "../../../store/json_getter";
 
 
 
-interface DescriptionPopupInterface {
+interface DescriptionModalInterface {
     onHide: () => void;
     title: string;
     chosen: string;
 }
 
 
-export default function DescriptionPopup({ chosen, title, onHide }: DescriptionPopupInterface) {
+export default function DescriptionModal({ chosen, title, onHide }: DescriptionModalInterface) {
     const desc = JsonGetter.getDescription(chosen);
 
     return (

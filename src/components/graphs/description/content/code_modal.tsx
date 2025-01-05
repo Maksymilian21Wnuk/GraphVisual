@@ -4,7 +4,7 @@ import python from 'react-syntax-highlighter/dist/esm/languages/hljs/python'
 import JsonGetter from "../../store/json_getter";
 import { useMemo } from "react";
 
-interface CodeDescProps {
+interface CodeModalInterface {
     selectedValue: string;
     hideCodeDesc: () => void;
 }
@@ -12,14 +12,13 @@ interface CodeDescProps {
 // optimization !!
 SyntaxHighlighter.registerLanguage("python", python);
 
-export default function CodeDesc({ selectedValue, hideCodeDesc }: CodeDescProps) {
+export default function CodeModal({ selectedValue, hideCodeDesc }: CodeModalInterface) {
     const code_text: string[] = useMemo(() => {
         return JsonGetter.getCode(selectedValue);
     }, [selectedValue])
 
     return (
         <dialog id="code_modal" className="modal gray-out" open>
-
             <div className="modal-box w-11/12 max-w-2xl">
                 <h1 className="h1-custom">
                     Code

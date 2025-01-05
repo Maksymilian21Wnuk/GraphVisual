@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AggregationInterfaceNamed } from "../../../../../algorithms/algorithms_description/json_interfaces";
-import DescriptionPopup from "./description_popup";
 import { faInfo } from "@fortawesome/free-solid-svg-icons/faInfo";
+import DescriptionModal from "./description_modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ChipsTypes from "./chips_types";
 
@@ -33,11 +33,11 @@ export default function Elements({ onClick, algos, filterVal }: ElementsProps) {
 
     return (
         <ul>
-            {showModal ? <DescriptionPopup title={title!} chosen={chosen!} onHide={onHide} /> : null}
-            {algos.map((a: AggregationInterfaceNamed, idx: number = 0) => {
+            {showModal ? <DescriptionModal title={title!} chosen={chosen!} onHide={onHide} /> : null}
+            {algos.map((a: AggregationInterfaceNamed) => {
                 if (a.title.toLocaleLowerCase().includes(filterVal)) {
                     return (
-                        <li key={idx}
+                        <li key={a.title}
                             onClick={() => onClick(a.name)}
                             className="grid grid-cols-11 gap-x-10 
                             cursor-pointer rounded-xl border-2 mb-2 
