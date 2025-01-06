@@ -17,7 +17,7 @@ interface ProgressButtonsProps {
 export default function ProgressButtons({ prev_step, setModifyMode, modifyMode, next_step, start, resetGraph, stepCount }: ProgressButtonsProps) {
 
     const [animating, setAnimating] = useState(false);
-    const [sliderValue, setSliderValue] = useState<number | string>(500);
+    const [sliderValue, setSliderValue] = useState<number>(500);
     const btn_ref = useRef<HTMLButtonElement | null>(null);
 
     const onReset = () => {
@@ -31,14 +31,14 @@ export default function ProgressButtons({ prev_step, setModifyMode, modifyMode, 
         for (let i = 0; i < stepCount; i++) {
             if (btn_ref.current) {
                 btn_ref.current.click();
-                await delay(sliderValue as number);
+                await delay(sliderValue);
             }
         }
         setAnimating(false);
     }
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSliderValue(parseInt(event.target.value));
+        setSliderValue(+event.target.value);
     }
 
 

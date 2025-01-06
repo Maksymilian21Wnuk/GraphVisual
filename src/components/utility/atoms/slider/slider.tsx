@@ -1,7 +1,7 @@
 
 
 interface SliderProps {
-    sliderValue : string | number;
+    sliderValue : number;
     onChange : (event: React.ChangeEvent<HTMLInputElement>) => void;
     step: string;
     max: string;

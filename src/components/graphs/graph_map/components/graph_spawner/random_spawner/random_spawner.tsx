@@ -18,10 +18,11 @@ const selector = (state: AppState) => ({
     setIsWeighted: state.setIsWeighted,
 });
 
+const regex : RegExp = /^[0-9\b]+$/;
 
 export default function RandomSpawner() {
     const { setNodes, setEdges, setIsDirected, setIsWeighted } = useStore(useShallow(selector));
-    const [sliderValue, setSliderValue] = useState<string | number>(0.5);
+    const [sliderValue, setSliderValue] = useState<number>(0.5);
     const [nodeCount, setNodeCount] = useState<string | number>(10);
     const reactFlow = useReactFlow();
 
@@ -48,18 +49,19 @@ export default function RandomSpawner() {
 
     const input_change = (event: React.ChangeEvent<HTMLInputElement>) => {
         const count: string = event.target.value;
-        if (count === "") {
-            alert("Node number must be greater than 0")
-            setNodeCount("");
-        }
-        else {
-            const parsed: number = parseInt(count);
+
+        if (count === '' || regex.test(count)) {
+            const parsed: number = +count;
             if (parsed < 0) {
                 setNodeCount(0);
             }
             else {
                 setNodeCount(parsed);
             }
+        }
+        else{
+            alert("Invalid value");
+            setNodeCount("");
         }
     }
 
