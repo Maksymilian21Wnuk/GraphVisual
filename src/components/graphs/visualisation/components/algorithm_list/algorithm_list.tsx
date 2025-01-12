@@ -16,7 +16,8 @@ export default function AlgorithmList({ setSelectedValue, setChosenFunction, res
 
 
     const handleChange = (chosen : string) => {
-        document.getElementById("navbar")?.scrollIntoView({ behavior: 'smooth' });
+        // for now disabled
+        //document.getElementById("navbar")?.scrollIntoView({ behavior: 'smooth' });
         setSelectedValue(chosen);
         setChosenFunction(JsonGetter.getAggregation(chosen));
         resetGraph();

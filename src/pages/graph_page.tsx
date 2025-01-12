@@ -13,7 +13,7 @@ export default function GraphVisualisationPage() {
         return (
             <div className="animate-appear min-h-screen">
                 <h1 className="flex h1-custom items-center" >
-                    Rotate device for best experience
+                    Rotate device for the best experience
                 </h1>
             </div>)
     }

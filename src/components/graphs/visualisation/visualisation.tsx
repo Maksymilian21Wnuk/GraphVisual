@@ -105,14 +105,14 @@ export default function Visualisation() {
                     dispatch({ type: VisualisationActionType.SET_PREV_STEP, payload: state.prev_step.previous.previous })
                 }
             }
-            else {
-                if (state.prev_step) {
-                    setNodes(state.prev_step.nodes);
-                    setEdges(state.prev_step.edges);
-                    dispatch({ type: VisualisationActionType.SET_PREV_STEP, payload: state.prev_step.previous })
 
-                }
+            else if (state.prev_step) {
+                setNodes(state.prev_step.nodes);
+                setEdges(state.prev_step.edges);
+                dispatch({ type: VisualisationActionType.SET_PREV_STEP, payload: state.prev_step.previous })
+
             }
+
             // case when message exists
             setMessage({
                 msg: step.msg,

@@ -110,8 +110,10 @@ export default function GraphView() {
             setEdges(edges.filter((e: Edge) => e.id !== edge.id))
         }
         else if (state.addMode && isWeighted) {
-            (document.getElementById('edge_modal') as HTMLDialogElement).showModal();
-            dispatch({ type: ActionType.CHANGE_EDGE, payload: edge });
+            if (ref.current) {
+                ref.current.showModal()
+                dispatch({ type: ActionType.CHANGE_EDGE, payload: edge });
+            }
         }
         else if (isDirected) {
             setEdges([...edges.filter((e: Edge) => e.id !== edge.id), {
