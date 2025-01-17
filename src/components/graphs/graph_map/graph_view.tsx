@@ -153,9 +153,12 @@ export default function GraphView() {
     };
 
     const clear = () => {
-        setEdges([]);
-        setNodes([]);
-        setModifyMode(true);
+        let confirmed = confirm("Are you sure you want to clear the graph?");
+        if (confirmed){
+            setEdges([]);
+            setNodes([]);
+            setModifyMode(true);
+        }
     }
 
 

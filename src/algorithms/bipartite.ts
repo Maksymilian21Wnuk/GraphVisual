@@ -22,7 +22,9 @@ export default function bipartite(g: Graph): Steps {
         if (map_color.get_color(start) == NOT_COLORED) {
             if (fst){
                 g.add_step({
-                    step_idx: 4
+                    step_idx: 4,
+                    additional: visited,
+                    additional_name: "Visited:"
                 })
             }
             fst = true;
@@ -67,7 +69,7 @@ export default function bipartite(g: Graph): Steps {
                         g.add_step({
                             step_idx: 5,
                             colorize_nodes: map_color,
-                            msg: `Graph not bipartite, ${neighbour} and ${node} have same color`
+                            msg: `Graph is not bipartite, ${neighbour} and ${node} have same color`
                         });
                         return g.get_steps();
                     }
@@ -91,7 +93,7 @@ export default function bipartite(g: Graph): Steps {
     g.add_step({
         step_idx: 5,
         colorize_nodes: map_color,
-        msg: `Graph bipartite`
+        msg: `Graph is bipartite`
     })
     return g.get_steps();
 }
