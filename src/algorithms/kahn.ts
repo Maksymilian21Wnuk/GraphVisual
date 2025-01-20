@@ -43,6 +43,8 @@ export default function kahn(g: DirectedGraph): Steps {
 
     while (queue.length) {
         const vertice = queue.dequeue()!;
+        result.push(vertice);
+
         g.add_step({
             step_idx: 2, additional_name: `Queue`, additional_snd_name: `Result: `,
             additional: queue, additional_snd: result,
@@ -53,7 +55,6 @@ export default function kahn(g: DirectedGraph): Steps {
         // we dont want to display 0' nodes
         indegrees.delete(vertice);
 
-        result.push(vertice);
         const neighbours = g.get_neighbours(vertice);
 
         g.add_step({
