@@ -2,7 +2,7 @@ import { useShallow } from "zustand/shallow";
 import useStore from "../store/store";
 import { useReducer } from "react";
 import { AppState } from "../../../shared/types/graph_map_types";
-import { GraphAbstract, Guard, Step, Steps, VisualisationState } from "../../../shared/types/visualisation_types";
+import { GraphAbstract, Guard, Step, Steps, VisualisationEvaluated, VisualisationState } from "../../../shared/types/visualisation_types";
 import colorNodes from "../../utility/functions/color_nodes";
 import colorEdges from "../../utility/functions/color_edges";
 import reset_edge_color from "../util/reset_edge_color";
@@ -43,14 +43,13 @@ export default function Visualisation() {
         chosen_function: JsonGetter.getAggregation('bfs'),
         steps: [],
         step_idx: NO_STEP,
-        prev_step: undefined,
-        first_prev: true
+        evaluated_array: []
     }
 
     const reactFlow = useReactFlow();
 
-    const update_nodes = (nodes_to_update : Node[]) : void  => {
-        nodes_to_update.map((n : Node) => {
+    const update_nodes = (nodes_to_update: Node[]): void => {
+        nodes_to_update.map((n: Node) => {
             reactFlow.updateNode(n.id, { style: n.style });
         })
     }
@@ -59,23 +58,35 @@ export default function Visualisation() {
 
     // function for handling next step of algorithm progression
     function next_step() {
-
         const step: Step = state.steps[state.step_idx + 1];
-        dispatch({ type: VisualisationActionType.SET_FIRST_PREV, payload: true })
-        if (step) {
+        const instruction = state.evaluated_array[state.step_idx + 1];
+
+        if (instruction !== undefined) {
+            update_nodes(instruction.nodes);
+            setEdges(instruction.edges)
+
+            // case when message exists
+            setMessage({
+                msg: instruction.msg.msg,
+                additional: instruction.msg.additional,
+                additional_name: instruction.msg.additional_name,
+                step_idx: instruction.msg.step_idx,
+                additional_snd: instruction.msg.additional_snd,
+                additional_snd_name: instruction.msg.additional_snd_name
+            });
+
+            action_creator(dispatch, [{
+                type: VisualisationActionType.SET_STEP_IDX,
+                payload: state.step_idx + 1
+            }]);
+        }
+
+        else if (step) {
             const new_nodes = colorNodes(step, nodes);
             const new_edges = colorEdges(step, edges);
             update_nodes(new_nodes);
 
             setEdges(new_edges);
-
-            action_creator(dispatch, [{
-                type: VisualisationActionType.SET_STEP_IDX,
-                payload: state.step_idx + 1
-            }, {
-                type: VisualisationActionType.SET_PREV_STEP,
-                payload: { previous: state.prev_step, nodes: new_nodes, edges: new_edges }
-            }]);
 
             // case when message exists
             setMessage({
@@ -86,6 +97,29 @@ export default function Visualisation() {
                 additional_snd: step.additional_snd_parsed,
                 additional_snd_name: step.additional_snd_name
             });
+
+            let evaluated: VisualisationEvaluated[] = state.evaluated_array;
+
+            evaluated[state.step_idx + 1] = {
+                msg: {
+                    msg: step.msg,
+                    additional: step.additional_parsed,
+                    additional_name: step.additional_name,
+                    step_idx: step.step_idx,
+                    additional_snd: step.additional_snd_parsed,
+                    additional_snd_name: step.additional_snd_name
+                }, nodes: new_nodes, edges: new_edges
+            }
+
+            action_creator(dispatch, [{
+                type: VisualisationActionType.SET_STEP_IDX,
+                payload: state.step_idx + 1
+            }, {
+                type: VisualisationActionType.SET_EVALUATED_ARRAY,
+                payload: evaluated
+            }]);
+
+
 
         }
         // case when algorithm finished execution
@@ -102,42 +136,30 @@ export default function Visualisation() {
 
     function prev_step() {
         // if first prev decrement 2
-        const step: Step = state.steps[state.step_idx - 1];
-        if (step) {
+
+        if (state.step_idx > -1) {
+            const instruction = state.evaluated_array[state.step_idx - 1];
+
             action_creator(dispatch, [
-                { type: VisualisationActionType.SET_FIRST_PREV, payload: false },
                 { type: VisualisationActionType.SET_STEP_IDX, payload: state.step_idx - 1 }
             ])
-            if (state.first_prev) {
-                if (state.prev_step && state.prev_step?.previous) {
 
-                    update_nodes(state.prev_step.previous.nodes!);
-                    setEdges(state.prev_step.previous.edges!);
-                    dispatch({ type: VisualisationActionType.SET_PREV_STEP, payload: state.prev_step.previous.previous })
-                }
-            }
-
-            else if (state.prev_step) {
-                update_nodes(state.prev_step.nodes);
-
-                setEdges(state.prev_step.edges);
-                dispatch({ type: VisualisationActionType.SET_PREV_STEP, payload: state.prev_step.previous })
-
-            }
+            update_nodes(instruction.nodes);
+            setEdges(instruction.edges)
 
             // case when message exists
             setMessage({
-                msg: step.msg,
-                additional: step.additional_parsed,
-                additional_name: step.additional_name,
-                step_idx: step.step_idx,
-                additional_snd: step.additional_snd_parsed,
-                additional_snd_name: step.additional_snd_name
+                msg: instruction.msg.msg,
+                additional: instruction.msg.additional,
+                additional_name: instruction.msg.additional_name,
+                step_idx: instruction.msg.step_idx,
+                additional_snd: instruction.msg.additional_snd,
+                additional_snd_name: instruction.msg.additional_snd_name
             });
-
         }
-
     }
+
+
 
     /* function for starting algorithm execution
     it basically initialize the graph with
@@ -157,7 +179,6 @@ export default function Visualisation() {
         const foo = JsonGetter.parseAlgorithm(state.chosen_function);
         // requirements checking for functions
         if (requirements_guard(guard, graph, directed)) {
-            dispatch({ type: VisualisationActionType.SET_PREV_STEP, payload: undefined })
 
             try {
                 const new_steps: Steps = steps_evaluator(graph, foo);
@@ -165,7 +186,8 @@ export default function Visualisation() {
                 action_creator(dispatch,
                     [
                         { type: VisualisationActionType.SET_STEP_IDX, payload: -1 },
-                        { type: VisualisationActionType.SET_STEPS, payload: new_steps }
+                        { type: VisualisationActionType.SET_STEPS, payload: new_steps },
+                        { type: VisualisationActionType.SET_EVALUATED_ARRAY, payload: Array(new_steps.length).fill(undefined) }
                     ]
                 )
             }

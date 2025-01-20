@@ -38,10 +38,9 @@ export enum ActionType {
  */
 export enum VisualisationActionType {
     SET_STEP_IDX,
-    SET_FIRST_PREV,
-    SET_PREV_STEP,
     SET_CHOSEN_FUNCTION,
-    SET_STEPS
+    SET_STEPS,
+    SET_EVALUATED_ARRAY
 }
 
 /**

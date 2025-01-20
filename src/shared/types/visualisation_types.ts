@@ -170,7 +170,7 @@ export type StructureInterface = {
 }
 
 export type VisualisationPayload = AggregationInterfaceNamed
-    | Steps | number | PreviousStep
+    | Steps | number | VisualisationEvaluated[]
     | undefined | boolean;
 
 export type VisualisationAction = {
@@ -178,10 +178,16 @@ export type VisualisationAction = {
     payload: VisualisationPayload;
 }
 
+export type VisualisationEvaluated = {
+    msg: Message;
+    nodes: Node[];
+    edges: Edge[];
+}
+
+
 export type VisualisationState = {
     chosen_function: AggregationInterfaceNamed;
     steps: Steps;
     step_idx: number;
-    prev_step: PreviousStep | undefined;
-    first_prev: boolean;
+    evaluated_array: VisualisationEvaluated[];
 }
