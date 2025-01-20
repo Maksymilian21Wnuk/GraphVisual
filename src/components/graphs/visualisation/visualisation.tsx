@@ -137,7 +137,7 @@ export default function Visualisation() {
     function prev_step() {
         // if first prev decrement 2
 
-        if (state.step_idx > -1) {
+        if (state.step_idx > 0) {
             const instruction = state.evaluated_array[state.step_idx - 1];
 
             action_creator(dispatch, [
