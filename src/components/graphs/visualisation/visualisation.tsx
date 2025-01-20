@@ -19,6 +19,7 @@ import reducer from "./store/reducer";
 import { VisualisationActionType } from "../../../shared/enumerations/enums";
 import { AggregationInterfaceNamed } from "../../../algorithms/algorithms_description/json_interfaces";
 import { action_creator } from "./store/action_creator";
+import { Node, useReactFlow } from "@xyflow/react";
 //import { Node, Edge } from "@xyflow/react";
 
 const selector = (state: AppState) => ({
@@ -45,22 +46,32 @@ export default function Visualisation() {
         prev_step: undefined,
         first_prev: true
     }
+
+    const reactFlow = useReactFlow();
+
+    const update_nodes = (nodes_to_update : Node[]) : void  => {
+        nodes_to_update.map((n : Node) => {
+            reactFlow.updateNode(n.id, { style: n.style });
+        })
+    }
+
     const [state, dispatch] = useReducer(reducer, initial_state);
 
     // function for handling next step of algorithm progression
     function next_step() {
-        const value = state.first_prev ? 0 : 1;
-        const step: Step = state.steps[state.step_idx + value];
+
+        const step: Step = state.steps[state.step_idx + 1];
         dispatch({ type: VisualisationActionType.SET_FIRST_PREV, payload: true })
         if (step) {
             const new_nodes = colorNodes(step, nodes);
             const new_edges = colorEdges(step, edges);
-            setNodes(new_nodes);
-            setEdges(new_edges)
+            update_nodes(new_nodes);
+
+            setEdges(new_edges);
 
             action_creator(dispatch, [{
                 type: VisualisationActionType.SET_STEP_IDX,
-                payload: state.step_idx + 1 + value
+                payload: state.step_idx + 1
             }, {
                 type: VisualisationActionType.SET_PREV_STEP,
                 payload: { previous: state.prev_step, nodes: new_nodes, edges: new_edges }
@@ -90,24 +101,25 @@ export default function Visualisation() {
     }
 
     function prev_step() {
-        const value = state.first_prev ? 2 : 1;
         // if first prev decrement 2
-        const step: Step = state.steps[state.step_idx - value];
+        const step: Step = state.steps[state.step_idx - 1];
         if (step) {
             action_creator(dispatch, [
                 { type: VisualisationActionType.SET_FIRST_PREV, payload: false },
-                { type: VisualisationActionType.SET_STEP_IDX, payload: state.step_idx - value }
+                { type: VisualisationActionType.SET_STEP_IDX, payload: state.step_idx - 1 }
             ])
             if (state.first_prev) {
                 if (state.prev_step && state.prev_step?.previous) {
-                    setNodes(state.prev_step.previous.nodes!);
+
+                    update_nodes(state.prev_step.previous.nodes!);
                     setEdges(state.prev_step.previous.edges!);
                     dispatch({ type: VisualisationActionType.SET_PREV_STEP, payload: state.prev_step.previous.previous })
                 }
             }
 
             else if (state.prev_step) {
-                setNodes(state.prev_step.nodes);
+                update_nodes(state.prev_step.nodes);
+
                 setEdges(state.prev_step.edges);
                 dispatch({ type: VisualisationActionType.SET_PREV_STEP, payload: state.prev_step.previous })
 
@@ -152,7 +164,7 @@ export default function Visualisation() {
                 setModifyMode(false);
                 action_creator(dispatch,
                     [
-                        { type: VisualisationActionType.SET_STEP_IDX, payload: 0 },
+                        { type: VisualisationActionType.SET_STEP_IDX, payload: -1 },
                         { type: VisualisationActionType.SET_STEPS, payload: new_steps }
                     ]
                 )

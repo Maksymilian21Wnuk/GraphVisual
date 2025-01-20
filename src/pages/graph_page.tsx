@@ -1,6 +1,6 @@
 import Description from "../components/graphs/description/description"
-import GraphSpawner from "../components/graphs/graph_map/components/graph_spawner/graph_spawner"
-import GraphView from "../components/graphs/graph_map/graph_view"
+import GraphSpawner from "../components/graphs/graph_view/components/graph_spawner/graph_spawner"
+import GraphView from "../components/graphs/graph_view/graph_view"
 import Visualisation from "../components/graphs/visualisation/visualisation"
 import { ReactFlowProvider } from "@xyflow/react"
 import { useWindowWidth } from "@react-hook/window-size"

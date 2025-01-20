@@ -14,6 +14,15 @@ function change_given_id(nodes : Node[], id : string, color : string, should_col
 function change_to_visited(nodes : Node[], color : string) : Node[] {
     return nodes.map((n : Node) => n.style?.background === NodeColor.CURRENTLY_VISITING || n.style?.background === NodeColor.CURRENT ? {...n, style : {...n.style, background: color}} : n);
 }
+/*
+function omit_position(node: Node) : Partial<Node> {
+    const {position, ...rest} = node;
+    return rest;
+}
+
+function map_positions(nodes : Node[]) : Partial<Node>[] {
+    return nodes.map((n : Node) => omit_position(n));
+}*/
 
 
 // simple for, wanted to make code more readable
