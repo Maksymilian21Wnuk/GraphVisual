@@ -9,7 +9,6 @@ export default function connectivity_check(g: Graph): Steps {
     let visited = new Set<string>();
     let queue = new Queue<string>(g.get_start_node());
     g.add_step({ additional_name: `Queue:`, step_idx: 0, additional: queue })
-    // to change
 
     while (queue.length > 0) {
         let node: string = queue.dequeue();

@@ -2,7 +2,6 @@ import Colors from "../shared/models/colors/colors";
 import DirectedGraph from "../shared/models/directed_graph/directed_graph";
 import { Steps } from "../shared/types/visualisation_types";
 
-// this might be badddd todo
 
 function dfs_recursive(vertice: string, visited: Set<string>, g: DirectedGraph, kosaraju_stack : string[], colors? : Colors, col_idx? : number) {
     if (visited.has(vertice)) {

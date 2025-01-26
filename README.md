@@ -29,7 +29,7 @@ git clone https://github.com/Maksymilian21Wnuk/GraphVisual.git && cd GraphVisual
 ```bash
 docker compose up
 ```
-2. Go to localhost:3000 in browser.
+2. Go to localhost:3000/GraphVisual in browser.
 3. You may stop docker compose with Ctrl+C
 or
 ```bash
@@ -40,14 +40,14 @@ docker compose down
 ```bash
 npm run dev
 ```
-2. Go to localhost:3000 in browser or when in cli
+2. Go to localhost:3000/GraphVisual in browser or when in cli
 use o+Enter.
 3. For prod build:
 ```bash
 npm run build
 npm run preview
 ```
-4. Go to localhost:4173 in browser or when in cli
+4. Go to localhost:4173/GraphVisual in browser or when in cli
 use o+Enter.
 
 ## Functionality <a name="functionality"></a>
@@ -125,3 +125,7 @@ route in application. It ensures that user fills valid data.
 
 
 ## Implementation <a name="implementation"></a>
+
+Examples of implementations can be examined
+in the algorithms folder. It is strongly advised to study them
+and then try to write algorithms.

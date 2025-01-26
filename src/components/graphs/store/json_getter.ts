@@ -1,5 +1,5 @@
 import { AggregationInterfaceNamed, DescriptionInterface, JsonRepresentation, JsonFields} from "../../../algorithms/algorithms_description/json_interfaces";
-import { AlgorithmsMap } from "../../../algorithms/algorithms_description/Algorithms_map";
+import { AlgorithmsMap } from "../../../algorithms/algorithms_description/algorithms_map";
 import { GraphFunctionAbstract } from "../../../shared/types/visualisation_types";
 import _description from "../../../algorithms/algorithms_description/description.json"
 
