@@ -21,8 +21,9 @@ export const fields : InfoFieldProps[] = [
     {
         title: "Extending current set of algorithms",
         content: `Some algorithms might be missing on this page. There is an ability
-        of extending the current set of algorithms. The API
-        might seem difficult at first glance, but after studying provided examples, writing new visualisations
+        of extending the current set of algorithms, availabe in the development mode of the GraphVisual. 
+        The framework might seem difficult at first glance, 
+        but after studying provided examples, writing new visualisations
         will be effortless.`
     },
     {
