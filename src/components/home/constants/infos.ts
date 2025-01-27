@@ -20,8 +20,8 @@ export const fields : InfoFieldProps[] = [
     },
     {
         title: "Extending current set of algorithms",
-        content: `Some algorithms might be missing on this page. There is provided instruction on my github,
-        where you may extend available algorithms by creating pull request with new algorithm. The API
+        content: `Some algorithms might be missing on this page. There is an ability
+        of extending the current set of algorithms. The API
         might seem difficult at first glance, but after studying provided examples, writing new visualisations
         will be effortless.`
     },
